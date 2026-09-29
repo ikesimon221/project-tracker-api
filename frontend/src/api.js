@@ -1,5 +1,5 @@
 // The one place that knows where our backend lives
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://project-tracker-api-hjit.onrender.com";
 
 // Send a POST request with a JSON body and return the JSON reply
 async function postJson(path, body) {

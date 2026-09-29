@@ -9,7 +9,10 @@ app = FastAPI(title="Project Tracker API")
 # Allow our React frontend to call this API from the browser
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # only our frontend, not everyone
+    allow_origins=[
+    "http://localhost:5173",
+    "https://project-tracker-api-kappa.vercel.app",
+],
     allow_methods=["*"],   # GET, POST, PUT, DELETE, etc.
     allow_headers=["*"],   # includes the Authorization header that carries the JWT
 )
