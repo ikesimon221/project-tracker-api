@@ -2,11 +2,13 @@ import { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
+import ProjectDetail from "./ProjectDetail";
 
 function App() {
   const [page, setPage] = useState("login");
-  // Start from any token saved earlier, so a page refresh keeps you logged in
   const [token, setToken] = useState(localStorage.getItem("token"));
+  // Which project is open, or null if we're on the dashboard
+  const [openProject, setOpenProject] = useState(null);
 
   function handleLogin(newToken) {
     localStorage.setItem("token", newToken);
@@ -16,11 +18,27 @@ function App() {
   function handleLogout() {
     localStorage.removeItem("token");
     setToken(null);
+    setOpenProject(null);
   }
 
-  // If we have a token, show the dashboard instead of the forms
   if (token) {
-    return <Dashboard token={token} onLogout={handleLogout} />;
+    if (openProject) {
+      return (
+        <ProjectDetail
+          token={token}
+          project={openProject}
+          onBack={() => setOpenProject(null)}
+          onLogout={handleLogout}
+        />
+      );
+    }
+    return (
+      <Dashboard
+        token={token}
+        onLogout={handleLogout}
+        onOpenProject={setOpenProject}
+      />
+    );
   }
 
   if (page === "register") {

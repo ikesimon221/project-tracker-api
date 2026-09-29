@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProjects, createProject } from "./api";
 
-function Dashboard({ token, onLogout }) {
+function Dashboard({ token, onLogout, onOpenProject }) {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -75,10 +75,10 @@ function Dashboard({ token, onLogout }) {
 
       <ul>
         {projects.map((project) => (
-          <li key={project.id}>
-            {project.name} ({project.status})
-            {project.client && ` - ${project.client}`}
-          </li>
+          <li key={project.id} onClick={() => onOpenProject(project)} style={{ cursor: "pointer" }}>
+  {project.name} ({project.status})
+  {project.client && ` - ${project.client}`}
+</li>
         ))}
       </ul>
     </div>
