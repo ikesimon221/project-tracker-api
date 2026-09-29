@@ -19,27 +19,31 @@ function Register({ onSwitch, onLogin }) {
     }
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <h2>Create account</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Register</button>
-      {error && <p>{error}</p>}
-      <button type="button" onClick={onSwitch}>
-        Already have an account? Log in
-      </button>
-    </form>
+    return (
+    <div className="page">
+      <div className="card">
+        <form onSubmit={handleSubmit}>
+          <h2>Create account</h2>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Register</button>
+          {error && <p>{error}</p>}
+        </form>
+        <button className="secondary" onClick={onSwitch}>
+          Already have an account? Log in
+        </button>
+      </div>
+    </div>
   );
 }
 

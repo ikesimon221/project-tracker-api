@@ -21,26 +21,30 @@ function Login({ onSwitch, onLogin }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Log in</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Log in</button>
-      {error && <p>{error}</p>}
-        <button type="button" onClick={onSwitch}>
-    Need an account? Register
-  </button>
-    </form>
+    <div className="page">
+      <div className="card">
+        <form onSubmit={handleSubmit}>
+          <h2>Log in</h2>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Log in</button>
+          {error && <p>{error}</p>}
+        </form>
+        <button className="secondary" onClick={onSwitch}>
+          Need an account? Register
+        </button>
+      </div>
+    </div>
   );
 }
 

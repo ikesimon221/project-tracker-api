@@ -48,39 +48,47 @@ function Dashboard({ token, onLogout, onOpenProject }) {
   }
 
   return (
-    <div>
-      <h2>Your projects</h2>
-      <button onClick={onLogout}>Log out</button>
+    <div className="page">
+      <div className="card wide">
+        <div className="top-row">
+          <h2>Your projects</h2>
+          <button onClick={onLogout}>Log out</button>
+        </div>
 
-      <form onSubmit={handleCreate}>
-        <input
-          placeholder="Project name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          placeholder="Client (optional)"
-          value={client}
-          onChange={(e) => setClient(e.target.value)}
-        />
-        <button type="submit">Add project</button>
-      </form>
+        <form onSubmit={handleCreate}>
+          <input
+            placeholder="Project name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            placeholder="Client (optional)"
+            value={client}
+            onChange={(e) => setClient(e.target.value)}
+          />
+          <button type="submit">Add project</button>
+        </form>
 
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {!loading && !error && projects.length === 0 && (
-        <p>No projects yet.</p>
-      )}
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {!loading && !error && projects.length === 0 && (
+          <p>No projects yet.</p>
+        )}
 
-      <ul>
-        {projects.map((project) => (
-          <li key={project.id} onClick={() => onOpenProject(project)} style={{ cursor: "pointer" }}>
-  {project.name} ({project.status})
-  {project.client && ` - ${project.client}`}
-</li>
-        ))}
-      </ul>
+        <ul>
+          {projects.map((project) => (
+            <li
+              key={project.id}
+              onClick={() => onOpenProject(project)}
+              style={{ cursor: "pointer" }}
+            >
+              {project.name} ({project.status})
+              {project.client && ` - ${project.client}`}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

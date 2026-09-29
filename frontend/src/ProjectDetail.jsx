@@ -50,37 +50,41 @@ function ProjectDetail({ token, project, onBack, onLogout }) {
     }
   }
 
-  return (
-    <div>
-      <button onClick={onBack}>Back to projects</button>
-      <h2>{project.name}</h2>
+   return (
+    <div className="page">
+      <div className="card wide">
+        <div className="top-row">
+          <h2>{project.name}</h2>
+          <button onClick={onBack}>Back to projects</button>
+        </div>
 
-      <form onSubmit={handleCreate}>
-        <input
-          placeholder="Task title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <button type="submit">Add task</button>
-      </form>
+        <form onSubmit={handleCreate}>
+          <input
+            placeholder="Task title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+          <button type="submit">Add task</button>
+        </form>
 
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {!loading && !error && tasks.length === 0 && <p>No tasks yet.</p>}
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {!loading && !error && tasks.length === 0 && <p>No tasks yet.</p>}
 
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <input
-              type="checkbox"
-              checked={task.is_done}
-              onChange={() => toggleDone(task)}
-            />
-            {task.title}
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <input
+                type="checkbox"
+                checked={task.is_done}
+                onChange={() => toggleDone(task)}
+              />
+              {task.title}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
