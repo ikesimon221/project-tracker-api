@@ -11,9 +11,7 @@ async function postJson(path, body) {
 
   const data = await response.json();
 
-  // fetch does NOT throw on 400 or 401, so we check the status ourselves
   if (!response.ok) {
-    // Our own errors send a text message; validation errors (422) send a list
     const message =
       typeof data.detail === "string" ? data.detail : "Please check your input";
     throw new Error(message);
@@ -28,4 +26,36 @@ export function register(email, password) {
 
 export function login(email, password) {
   return postJson("/auth/login", { email, password });
+}
+
+// Sends a request with the login token attached. Works for GET, POST, etc.
+async function authRequest(path, token, options = {}) {
+  const response = await fetch(`${API_URL}${path}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  return data;
+}
+
+export function getProjects(token) {
+  return authRequest("/projects/", token);
+}
+
+export function createProject(token, project) {
+  return authRequest("/projects/", token, {
+    method: "POST",
+    body: JSON.stringify(project),
+  });
 }

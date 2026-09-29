@@ -20,7 +20,7 @@ function App() {
 
   // If we have a token, show the dashboard instead of the forms
   if (token) {
-    return <Dashboard onLogout={handleLogout} />;
+    return <Dashboard token={token} onLogout={handleLogout} />;
   }
 
   if (page === "register") {
